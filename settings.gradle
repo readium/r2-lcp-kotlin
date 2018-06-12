@@ -1,1 +1,1 @@
-include ':r2-lcp'
+include ':r2-lcp', ':liblcp'

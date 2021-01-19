@@ -6,13 +6,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+* You can observe the progress of an acquisition by providing an `onProgress` closure to `LcpService.acquirePublication()`.
+
+
 ## [2.0.0-beta.1]
 
-## Changed
+### Changed
 
 * Upgraded to Kotlin 1.4.10.
 
-## Fixed
+### Fixed
 
 * When acquiring a publication, falls back on the media type declared in the license link if the server returns an unknown media type.
 

@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+* [#287](https://github.com/readium/r2-testapp-kotlin/issues/287) Make sure the passphrase input is visible on smaller devices in the authentication dialog.
+
 ## [2.0.0-beta.1]
 
 ## Changed

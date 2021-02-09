@@ -9,6 +9,15 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * You can observe the progress of an acquisition by providing an `onProgress` closure to `LcpService.acquirePublication()`.
+* Extensibility in licenses' `Rights` model.
+
+### Changed
+
+* The Renew Loan API got revamped to better support renewal through a web page.
+    * You will need to implement `LcpLicense.RenewListener` to coordinate the UX interaction.
+    * If your application fits Material Design guidelines, take a look at `MaterialRenewListener` for a default implementation.
+* Removed dependency on Joda's `DateTime` in public APIs.
+    * You can always create a `DateTime` from the standard `Date` objects if you relied on Joda's features in the callers.
 
 
 ## [2.0.0-beta.1]

@@ -40,7 +40,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt"
 
     if (findProject(':r2-shared')) {
         implementation project(':r2-shared')

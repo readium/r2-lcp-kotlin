@@ -10,11 +10,32 @@
 package org.readium.r2.lcp.service
 
 import org.readium.r2.lcp.license.model.LicenseDocument
+import org.readium.r2.lcp.persistence.LcpDao
+import org.readium.r2.lcp.persistence.Licenses
 
-internal interface LicensesRepository {
-    fun addLicense(license: LicenseDocument)
-    fun copiesLeft(licenseId: String) : Int?
-    fun setCopiesLeft(quantity: Int, licenseId: String)
-    fun printsLeft(licenseId: String) : Int?
-    fun setPrintsLeft(quantity: Int, licenseId: String)
+class LicensesRepository(private val lcpDao: LcpDao) {
+
+    suspend fun addLicense(licenseDocument: LicenseDocument) {
+        if (lcpDao.exists(licenseDocument.id) != null) {
+            return
+        }
+        val license = Licenses(licenseDocument.id, licenseDocument.rights.print, licenseDocument.rights.copy)
+        lcpDao.addLicense(license)
+    }
+
+    suspend fun getCopiesLeft(licenseId: String) : Int? {
+        return lcpDao.getCopiesLeft(licenseId)
+    }
+
+    suspend fun setCopiesLeft(quantity: Int, licenseId: String) {
+        lcpDao.setCopiesLeft(quantity, licenseId)
+    }
+
+    suspend fun printsLeft(licenseId: String) : Int? {
+        return lcpDao.getPrintsLeft(licenseId)
+    }
+
+    suspend fun setPrintsLeft(quantity: Int, licenseId: String) {
+        lcpDao.setPrintsLeft(quantity, licenseId)
+    }
 }

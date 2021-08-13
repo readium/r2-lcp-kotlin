@@ -25,7 +25,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.contentView
 import org.readium.r2.lcp.LcpAuthenticating
 import org.readium.r2.lcp.R
 import org.readium.r2.lcp.license.model.components.Link

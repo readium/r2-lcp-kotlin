@@ -10,64 +10,38 @@
 package org.readium.r2.lcp.persistence
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import org.jetbrains.anko.db.INTEGER
-import org.jetbrains.anko.db.ManagedSQLiteOpenHelper
-import org.jetbrains.anko.db.TEXT
-import org.jetbrains.anko.db.createTable
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
 
-// Access property for Context
-internal val Context.database: LcpDatabaseOpenHelper
-    get() = LcpDatabaseOpenHelper.getInstance(applicationContext)
+@Database(
+    entities = [Transactions::class, Licenses::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class LcpDatabase : RoomDatabase() {
 
-internal val Context.appContext: Context
-    get() = applicationContext
+    abstract fun lcpDao(): LcpDao
 
-
-internal class Database(context: Context) {
-
-    val shared: LcpDatabaseOpenHelper = LcpDatabaseOpenHelper(context)
-    var licenses: Licenses
-    var transactions: Transactions
-
-    init {
-        licenses = Licenses(shared)
-        transactions = Transactions(shared)
-    }
-
-}
-
-internal class LcpDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "lcpdatabase", null, 1) {
     companion object {
-        private var instance: LcpDatabaseOpenHelper? = null
+        @Volatile
+        private var INSTANCE: LcpDatabase? = null
 
-        @Synchronized
-        fun getInstance(ctx: Context): LcpDatabaseOpenHelper {
-            if (instance == null) {
-                instance = LcpDatabaseOpenHelper(ctx.applicationContext)
+        fun getDatabase(context: Context): LcpDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
             }
-            return instance!!
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    LcpDatabase::class.java,
+                    "lcpdatabase"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
         }
-    }
-
-    override fun onCreate(db: SQLiteDatabase) {
-
-        db.createTable(LicensesTable.NAME, true,
-                LicensesTable.ID to TEXT,
-                LicensesTable.PRINTSLEFT to INTEGER,
-                LicensesTable.COPIESLEFT to INTEGER,
-                LicensesTable.REGISTERED to INTEGER)
-
-        db.createTable(TransactionsTable.NAME, true,
-                TransactionsTable.ID to TEXT,
-                TransactionsTable.ORIGIN to TEXT,
-                TransactionsTable.USERID to TEXT,
-                TransactionsTable.PASSPHRASE to TEXT)
-
-    }
-
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Here you can upgrade tables, as usual
     }
 }

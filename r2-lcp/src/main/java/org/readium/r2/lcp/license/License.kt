@@ -63,7 +63,7 @@ internal class License(
     override val charactersToCopyLeft: Int?
         get() {
             try {
-                val charactersLeft = licenses.copiesLeft(license.id)
+                val charactersLeft = licenses.getCopiesLeft(license.id)
                 if (charactersLeft != null) {
                     return charactersLeft
                 }

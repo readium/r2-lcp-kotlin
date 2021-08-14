@@ -15,21 +15,24 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = Licenses.TABLE_NAME)
 data class Licenses(
-    @PrimaryKey
     @ColumnInfo(name = ID)
-    var id: String,
+    var id: String?,
     @ColumnInfo(name = PRINTSLEFT)
     val printsLeft: Int?,
     @ColumnInfo(name = COPIESLEFT)
     val copiesLeft: Int?,
     @ColumnInfo(name = REGISTERED)
-    val registered: Boolean? = false
+    val registered: Boolean? = false,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = PKID)
+    var pkId: Long? = null
 ) {
 
     companion object {
 
         const val TABLE_NAME = "Licenses"
         const val ID = "id"
+        const val PKID = "PKID"
         const val PRINTSLEFT = "printsLeft"
         const val COPIESLEFT = "copiesLeft"
         const val REGISTERED = "registered"

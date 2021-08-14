@@ -37,7 +37,46 @@ abstract class LcpDatabase : RoomDatabase() {
             }
             val MIGRATION_1_2 = object : Migration(1, 2) {
                 override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL(
+                        """
+                CREATE TABLE new_Transactions (
+                    PKID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id TEXT,
+                    origin TEXT,
+                    userId TEXT,
+                    passphrase TEXT
+                )
+                """.trimIndent()
+                    )
+                    database.execSQL(
+                        """
+                INSERT INTO new_Transactions (id, origin, userId, passphrase)
+                SELECT id, origin, userId, passphrase FROM Transactions
+                """.trimIndent()
+                    )
+                    database.execSQL("DROP TABLE Transactions")
+                    database.execSQL("ALTER TABLE new_Transactions RENAME TO Transactions")
 
+
+                    database.execSQL(
+                        """
+                CREATE TABLE new_Licenses (
+                    PKID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id TEXT,
+                    printsLeft INTEGER,
+                    copiesLeft INTEGER,
+                    registered INTEGER DEFAULT 0
+                )
+                """.trimIndent()
+                    )
+                    database.execSQL(
+                        """
+                INSERT INTO new_Licenses (id, printsLeft, copiesLeft, registered)
+                SELECT id, printsLeft, copiesLeft, registered FROM Licenses
+                """.trimIndent()
+                    )
+                    database.execSQL("DROP TABLE Licenses")
+                    database.execSQL("ALTER TABLE new_Licenses RENAME TO Licenses")
                 }
             }
             synchronized(this) {

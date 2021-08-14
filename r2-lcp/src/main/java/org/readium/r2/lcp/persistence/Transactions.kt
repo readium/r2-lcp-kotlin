@@ -15,21 +15,24 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = Transactions.TABLE_NAME)
 data class Transactions(
-    @PrimaryKey
     @ColumnInfo(name = ID)
-    var id: String,
+    var id: String?,
     @ColumnInfo(name = ORIGIN)
-    val origin: String,
+    val origin: String?,
     @ColumnInfo(name = USERID)
-    val userId: String,
+    val userId: String?,
     @ColumnInfo(name = PASSPHRASE)
-    val passphrase: String
+    val passphrase: String?,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name =  PKID)
+    var pkId: Long? = null
 ) {
 
     companion object {
 
         const val TABLE_NAME = "Transactions"
         const val ID = "id"
+        const val PKID = "PKID"
         const val ORIGIN = "origin"
         const val USERID = "userId"
         const val PASSPHRASE = "passphrase"

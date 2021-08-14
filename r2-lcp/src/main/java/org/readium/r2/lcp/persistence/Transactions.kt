@@ -28,10 +28,10 @@ data class Transactions(
 
     companion object {
 
-        const val TABLE_NAME = "TRANSACTIONS"
+        const val TABLE_NAME = "Transactions"
         const val ID = "id"
-        const val ORIGIN = "ORIGIN"
-        const val USERID = "USERID"
-        const val PASSPHRASE = "PASSPHRASE"
+        const val ORIGIN = "origin"
+        const val USERID = "userId"
+        const val PASSPHRASE = "passphrase"
     }
 }

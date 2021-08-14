@@ -54,7 +54,7 @@ class LcpDialogAuthentication : LcpAuthenticating {
         else null
 
     private suspend fun askPassphrase(license: LcpAuthenticating.AuthenticatedLicense, reason: LcpAuthenticating.AuthenticationReason, sender: Any?): String? {
-        val hostView = (sender as? View) ?: (sender as? Activity)?.contentView ?: (sender as? Fragment)?.view
+        val hostView = (sender as? View) ?: (sender as? Activity)?.findViewById(android.R.id.content) ?: (sender as? Fragment)?.view
         ?: run {
             Timber.e("No valid [sender] was passed to `LcpDialogAuthentication::retrievePassphrase()`. Make sure it is an Activity, a Fragment or a View.")
             return null

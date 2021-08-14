@@ -37,14 +37,14 @@ interface LcpDao {
     suspend fun addLicense(license: Licenses)
 
     @Query("SELECT ${Licenses.COPIESLEFT} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.ID} = :licenseId")
-    suspend fun getCopiesLeft(licenseId: String): Int?
+    fun getCopiesLeft(licenseId: String): Int?
 
     @Query("UPDATE ${Licenses.TABLE_NAME} SET ${Licenses.COPIESLEFT} = :quantity WHERE ${Licenses.ID} = :licenseId")
-    suspend fun setCopiesLeft(quantity: Int, licenseId: String)
+    fun setCopiesLeft(quantity: Int, licenseId: String)
 
     @Query("SELECT ${Licenses.PRINTSLEFT} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.ID} = :licenseId")
-    suspend fun getPrintsLeft(licenseId: String): Int?
+    fun getPrintsLeft(licenseId: String): Int?
 
     @Query("UPDATE ${Licenses.TABLE_NAME} SET ${Licenses.PRINTSLEFT} = :quantity WHERE ${Licenses.ID} = :licenseId")
-    suspend fun setPrintsLeft(quantity: Int, licenseId: String)
+    fun setPrintsLeft(quantity: Int, licenseId: String)
 }

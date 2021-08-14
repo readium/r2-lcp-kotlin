@@ -23,19 +23,19 @@ class LicensesRepository(private val lcpDao: LcpDao) {
         lcpDao.addLicense(license)
     }
 
-    suspend fun getCopiesLeft(licenseId: String) : Int? {
+    fun getCopiesLeft(licenseId: String) : Int? {
         return lcpDao.getCopiesLeft(licenseId)
     }
 
-    suspend fun setCopiesLeft(quantity: Int, licenseId: String) {
+    fun setCopiesLeft(quantity: Int, licenseId: String) {
         lcpDao.setCopiesLeft(quantity, licenseId)
     }
 
-    suspend fun printsLeft(licenseId: String) : Int? {
+    fun printsLeft(licenseId: String) : Int? {
         return lcpDao.getPrintsLeft(licenseId)
     }
 
-    suspend fun setPrintsLeft(quantity: Int, licenseId: String) {
+    fun setPrintsLeft(quantity: Int, licenseId: String) {
         lcpDao.setPrintsLeft(quantity, licenseId)
     }
 }

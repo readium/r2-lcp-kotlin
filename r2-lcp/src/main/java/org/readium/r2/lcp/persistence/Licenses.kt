@@ -28,10 +28,10 @@ data class Licenses(
 
     companion object {
 
-        const val TABLE_NAME = "LICENSES"
-        const val ID = "ID"
-        const val PRINTSLEFT = "PRINTSLEFT"
-        const val COPIESLEFT = "COPIESLEFT"
-        const val REGISTERED = "REGISTERED"
+        const val TABLE_NAME = "Licenses"
+        const val ID = "id"
+        const val PRINTSLEFT = "printsLeft"
+        const val COPIESLEFT = "copiesLeft"
+        const val REGISTERED = "registered"
     }
 }

@@ -15,7 +15,7 @@ import org.readium.r2.lcp.persistence.LcpDao
 
 class DeviceRepository(private val lcpDao: LcpDao) {
 
-    suspend fun isDeviceRegistered(license: LicenseDocument) : Boolean {
+    suspend fun isDeviceRegistered(license: LicenseDocument): Boolean {
         if (lcpDao.exists(license.id) == null) {
             throw LcpException.Runtime("The LCP License doesn't exist in the database")
         }

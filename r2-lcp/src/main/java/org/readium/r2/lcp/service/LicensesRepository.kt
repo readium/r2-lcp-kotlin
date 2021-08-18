@@ -23,7 +23,7 @@ class LicensesRepository(private val lcpDao: LcpDao) {
         lcpDao.addLicense(license)
     }
 
-    fun getCopiesLeft(licenseId: String) : Int? {
+    fun copiesLeft(licenseId: String): Int? {
         return lcpDao.getCopiesLeft(licenseId)
     }
 

@@ -27,7 +27,7 @@ interface LcpDao {
     @Query("SELECT ${Licenses.ID} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.ID} = :licenseId")
     suspend fun exists(licenseId: String): String?
 
-    @Query("SELECT ${Licenses.REGISTERED} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.ID} = :licenseId AND ${Licenses.REGISTERED} = 1")
+    @Query("SELECT ${Licenses.REGISTERED} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.ID} = :licenseId")
     suspend fun isDeviceRegistered(licenseId: String): Boolean
 
     @Query("UPDATE ${Licenses.TABLE_NAME} SET ${Licenses.REGISTERED} = 1 WHERE ${Licenses.ID} = :licenseId")

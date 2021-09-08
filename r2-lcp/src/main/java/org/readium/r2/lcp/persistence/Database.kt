@@ -18,11 +18,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 @Database(
-    entities = [Transactions::class, Licenses::class],
+    entities = [Passphrase::class, Licenses::class],
     version = 2,
     exportSchema = false
 )
-abstract class LcpDatabase : RoomDatabase() {
+internal abstract class LcpDatabase : RoomDatabase() {
 
     abstract fun lcpDao(): LcpDao
 
@@ -39,44 +39,43 @@ abstract class LcpDatabase : RoomDatabase() {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     database.execSQL(
                         """
-                CREATE TABLE new_Transactions (
-                    PKID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    id TEXT,
-                    origin TEXT,
-                    userId TEXT,
-                    passphrase TEXT
+                CREATE TABLE passphrases (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    license_id TEXT,
+                    provider TEXT,
+                    user_id TEXT,
+                    passphrase TEXT NOT NULL
                 )
                 """.trimIndent()
                     )
                     database.execSQL(
                         """
-                INSERT INTO new_Transactions (id, origin, userId, passphrase)
+                INSERT INTO passphrases (license_id, provider, user_id, passphrase)
                 SELECT id, origin, userId, passphrase FROM Transactions
                 """.trimIndent()
                     )
                     database.execSQL("DROP TABLE Transactions")
-                    database.execSQL("ALTER TABLE new_Transactions RENAME TO Transactions")
 
 
                     database.execSQL(
                         """
                 CREATE TABLE new_Licenses (
-                    PKID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    id TEXT,
-                    printsLeft INTEGER,
-                    copiesLeft INTEGER,
-                    registered INTEGER DEFAULT 0
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    license_id TEXT NOT NULL,
+                    right_print INTEGER,
+                    right_copy INTEGER,
+                    registered INTEGER DEFAULT 0 NOT NULL
                 )
                 """.trimIndent()
                     )
                     database.execSQL(
                         """
-                INSERT INTO new_Licenses (id, printsLeft, copiesLeft, registered)
+                INSERT INTO new_Licenses (license_id, right_print, right_copy, registered)
                 SELECT id, printsLeft, copiesLeft, registered FROM Licenses
                 """.trimIndent()
                     )
                     database.execSQL("DROP TABLE Licenses")
-                    database.execSQL("ALTER TABLE new_Licenses RENAME TO Licenses")
+                    database.execSQL("ALTER TABLE new_Licenses RENAME TO licenses")
                 }
             }
             synchronized(this) {

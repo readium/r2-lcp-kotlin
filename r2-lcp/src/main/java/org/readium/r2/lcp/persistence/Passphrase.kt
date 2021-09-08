@@ -13,28 +13,28 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = Transactions.TABLE_NAME)
-data class Transactions(
+@Entity(tableName = Passphrase.TABLE_NAME)
+data class Passphrase(
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID)
-    var id: String?,
-    @ColumnInfo(name = ORIGIN)
-    val origin: String?,
+    var id: Long? = null,
+    @ColumnInfo(name = LICENSEID)
+    var licenseId: String?,
+    @ColumnInfo(name = PROVIDER)
+    val provider: String?,
     @ColumnInfo(name = USERID)
     val userId: String?,
     @ColumnInfo(name = PASSPHRASE)
-    val passphrase: String?,
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name =  PKID)
-    var pkId: Long? = null
+    val passphrase: String
 ) {
 
     companion object {
 
-        const val TABLE_NAME = "Transactions"
+        const val TABLE_NAME = "passphrases"
         const val ID = "id"
-        const val PKID = "PKID"
-        const val ORIGIN = "origin"
-        const val USERID = "userId"
+        const val LICENSEID = "license_id"
+        const val PROVIDER = "provider"
+        const val USERID = "user_id"
         const val PASSPHRASE = "passphrase"
     }
 }

@@ -24,7 +24,7 @@ data class Licenses(
     val rightPrint: Int?,
     @ColumnInfo(name = RIGHTCOPY)
     val rightCopy: Int?,
-    @ColumnInfo(name = REGISTERED)
+    @ColumnInfo(name = REGISTERED, defaultValue = "0")
     val registered: Boolean = false
 ) {
 
@@ -32,7 +32,7 @@ data class Licenses(
 
         const val TABLE_NAME = "licenses"
         const val LICENSE_ID = "license_id"
-        const val ID = "ID"
+        const val ID = "id"
         const val RIGHTPRINT = "right_print"
         const val RIGHTCOPY = "right_copy"
         const val REGISTERED = "registered"

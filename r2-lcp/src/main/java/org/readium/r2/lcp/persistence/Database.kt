@@ -64,7 +64,7 @@ internal abstract class LcpDatabase : RoomDatabase() {
                     license_id TEXT NOT NULL,
                     right_print INTEGER,
                     right_copy INTEGER,
-                    registered INTEGER DEFAULT 0 NOT NULL
+                    registered INTEGER NOT NULL ON CONFLICT REPLACE DEFAULT 0
                 )
                 """.trimIndent()
                     )

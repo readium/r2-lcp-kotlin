@@ -13,8 +13,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = Licenses.TABLE_NAME)
-data class Licenses(
+@Entity(tableName = License.TABLE_NAME)
+data class License(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID)
     var id: Long? = null,

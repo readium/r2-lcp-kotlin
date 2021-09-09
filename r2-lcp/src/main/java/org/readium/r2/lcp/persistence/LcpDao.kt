@@ -24,27 +24,27 @@ interface LcpDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addPassphrase(passphrase: Passphrase)
 
-    @Query("SELECT ${Licenses.LICENSE_ID} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("SELECT ${License.LICENSE_ID} FROM ${License.TABLE_NAME} WHERE ${License.LICENSE_ID} = :licenseId")
     suspend fun exists(licenseId: String): String?
 
-    @Query("SELECT ${Licenses.REGISTERED} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("SELECT ${License.REGISTERED} FROM ${License.TABLE_NAME} WHERE ${License.LICENSE_ID} = :licenseId")
     suspend fun isDeviceRegistered(licenseId: String): Boolean
 
-    @Query("UPDATE ${Licenses.TABLE_NAME} SET ${Licenses.REGISTERED} = 1 WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("UPDATE ${License.TABLE_NAME} SET ${License.REGISTERED} = 1 WHERE ${License.LICENSE_ID} = :licenseId")
     suspend fun registerDevice(licenseId: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addLicense(license: Licenses)
+    suspend fun addLicense(license: License)
 
-    @Query("SELECT ${Licenses.RIGHTCOPY} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("SELECT ${License.RIGHTCOPY} FROM ${License.TABLE_NAME} WHERE ${License.LICENSE_ID} = :licenseId")
     fun getCopiesLeft(licenseId: String): Int?
 
-    @Query("UPDATE ${Licenses.TABLE_NAME} SET ${Licenses.RIGHTCOPY} = :quantity WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("UPDATE ${License.TABLE_NAME} SET ${License.RIGHTCOPY} = :quantity WHERE ${License.LICENSE_ID} = :licenseId")
     fun setCopiesLeft(quantity: Int, licenseId: String)
 
-    @Query("SELECT ${Licenses.RIGHTPRINT} FROM ${Licenses.TABLE_NAME} WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("SELECT ${License.RIGHTPRINT} FROM ${License.TABLE_NAME} WHERE ${License.LICENSE_ID} = :licenseId")
     fun getPrintsLeft(licenseId: String): Int?
 
-    @Query("UPDATE ${Licenses.TABLE_NAME} SET ${Licenses.RIGHTPRINT} = :quantity WHERE ${Licenses.LICENSE_ID} = :licenseId")
+    @Query("UPDATE ${License.TABLE_NAME} SET ${License.RIGHTPRINT} = :quantity WHERE ${License.LICENSE_ID} = :licenseId")
     fun setPrintsLeft(quantity: Int, licenseId: String)
 }

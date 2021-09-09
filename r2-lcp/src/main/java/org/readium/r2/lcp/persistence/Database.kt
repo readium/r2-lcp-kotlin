@@ -18,7 +18,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 @Database(
-    entities = [Passphrase::class, Licenses::class],
+    entities = [Passphrase::class, License::class],
     version = 2,
     exportSchema = false
 )
